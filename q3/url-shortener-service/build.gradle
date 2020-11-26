@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id "org.flywaydb.flyway" version "5.2.4"
+    id 'jacoco'
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+project.ext {
+    springBootVersion = "2.1.4.RELEASE"
+}
+
+ext['junit-jupiter.version'] = '5.6.0'
+
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.retry:spring-retry:1.2.2.RELEASE'
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude(module: 'junit')
+    }
+
+    implementation 'commons-io:commons-io:2.6'
+    implementation 'com.google.guava:guava:27.0.1-jre'
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+    implementation 'com.zaxxer:HikariCP'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
+    implementation 'org.flywaydb:flyway-core:5.2.1'
+    implementation('org.apache.httpcomponents:httpclient:4.5.6') {
+        exclude(module: 'commons-logging')
+    }
+    implementation 'mysql:mysql-connector-java:8.0.17'
+    compileOnly 'io.github.openfeign:feign-jackson:10.2.0'
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    testCompileOnly "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.junit.jupiter:junit-jupiter-params"
+
+    testImplementation 'com.github.tomakehurst:wiremock:2.21.0'
+    testImplementation 'io.florianlopes:spring-mvc-test-utils:2.2.1'
+}
+
+jacoco {
+    toolVersion = '0.8.3'
+}
+
+def exclusions = ['**/*Config.*',
+                  '**/*Properties.*',
+                  '**/*Exception.*',
+                  '**/*Application.*',
+                  '**/*Links.*',
+                  '**/config/**/*',
+                  "**/model/**/*",
+                  '**/dto/**/*',
+                  '**/entity/**/*'
+]
+
+test {
+    useJUnitPlatform()
+}

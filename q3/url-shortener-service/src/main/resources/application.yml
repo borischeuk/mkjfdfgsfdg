@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    org.springframework: INFO
+    com.example: DEBUG
+    feign: DEBUG
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m %X{Request-Id} %n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}}"
+
+spring:
+  flyway:
+    locations: classpath:/db/migration
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+shortenurl-datasource:
+  host: ${DB_HOST:127.0.0.1}
+  port: ${DB_PORT:3306}
+  dbName: ${SHORTEN_URL_DB:shorten_url}
+  username: ${DB_USERNAME:root}
+  password: ${DB_PASSWORD:123456}
+
+service-config:
+  fqdn: ${SERVICE_FQDN:http://localhost:8080}

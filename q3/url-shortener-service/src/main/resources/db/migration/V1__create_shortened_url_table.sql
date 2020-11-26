@@ -1,0 +1,4 @@
+CREATE TABLE shortened_url (
+    id VARCHAR(50) PRIMARY KEY,
+    url VARCHAR(255) NOT NULL
+) ENGINE=INNODB

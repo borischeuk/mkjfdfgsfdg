@@ -1,0 +1,1 @@
+cut -d '"' -f2 access.log | awk '{print $NF}' | grep HTTP | wc -l
